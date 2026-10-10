@@ -77,4 +77,4 @@ Source: [Kaggle](https://www.kaggle.com/datasets/mamtadhaker/lt-vehicle-loan-def
 
 Source: [Kaggle](https://www.kaggle.com/datasets/aatifahmad123/indian-vehicle-registration-data-202025) — vehicle-registration records for India, 2020–2025. Fetch with `python data/download_dataset.py vehicle-reg` (needs a Kaggle API token); files land in `data/raw/vehicle_registration/`.
 
-**Data dictionary, cleaning rules and preprocessing: _TBD_** — to be written from the downloaded file's actual columns (the dataset's page lists only a description, not a schema).
+**Data dictionary: _TBD_** — Kaggle's page gives only a description, not a schema, and the file could not be fetched while building the repo, so columns are not listed here yet. `clustering.ipynb` detects column types itself and prints exactly what it keeps, drops (index/ID, constant, >50% missing), log-transforms and one-hot encodes, so the cleaning rules are visible in its Section B output once the data is downloaded; copy the column list into this section then.

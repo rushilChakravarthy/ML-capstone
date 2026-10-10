@@ -57,8 +57,8 @@ Full data dictionaries and cleaning rules: [`data/README.md`](data/README.md).
 |---|---|---|
 | Regression (Review 1) | Linear, Ridge, Lasso, ElasticNet, Polynomial, Decision Tree, Random Forest, Gradient Boosting, SVR, KNN | Implemented, executed |
 | Classification Part A (Review 1) | Logistic Regression, KNN, Gaussian Naive Bayes, Decision Tree, SVC | Implemented, executed |
-| Classification Part B (Review 2) | Random Forest, AdaBoost, Gradient Boosting, Bagging (Decision Tree base), MLP | Framework ready — **algorithm cells are `TODO`** |
-| Clustering (Review 2) | K-Means (Elbow), Agglomerative (Dendrogram) | Framework ready — **EDA / preprocessing / algorithm cells are `TODO`**; dataset chosen, file not yet downloaded |
+| Classification Part B (Review 2) | Random Forest, AdaBoost, Gradient Boosting, Bagging (Decision Tree base), MLP | **Only the 5 algorithm cells are `TODO`**; the consolidated table, ROC curves, final-model tuning, 5-fold CV and model saving for the GUI are pre-built and run automatically once the 5 models exist |
+| Clustering (Review 2) | K-Means (Elbow), Agglomerative (Dendrogram) | **Only the K-Means / Agglomerative cells (elbow, dendrogram, fits) are `TODO`**; EDA, preprocessing, metrics, PCA, t-SNE and cluster profiling are pre-built. Dataset must be downloaded first (`python data/download_dataset.py vehicle-reg`) |
 
 Metrics — Regression: R², RMSE, MAE, 5-fold CV R² (top 2). Classification: Accuracy, Precision, Recall, weighted F1, confusion matrix, ROC-AUC (binary target, so plain ROC-AUC rather than One-vs-Rest). Clustering: Silhouette, Davies-Bouldin, Calinski-Harabasz; PCA 2-D plot for every algorithm, t-SNE for at least one.
 
@@ -110,7 +110,7 @@ jupyter notebook
 
 1. Both datasets used so far are already committed in `data/raw/` — no download step. (`python data/download_dataset.py vehicle-reg` fetches the clustering dataset from Kaggle; it needs a free Kaggle API token — see the script's docstring.)
 2. Open a notebook in `notebooks/` and **Run All** (top to bottom). `random_state=42` is used throughout.
-3. `regression.ipynb` and `classification.ipynb` (Part A) run end-to-end with outputs saved. In `classification.ipynb` Part B and in `clustering.ipynb`, algorithm cells marked `# TODO` are filled in by the team; each fills a shared dict (`fitted_models` / `predictions` / `probabilities`, or `cluster_labels`) and the evaluation / plotting cells below read from it.
+3. `regression.ipynb` and `classification.ipynb` (Part A) run end-to-end with outputs saved. The only cells left for the team are the algorithm cells marked `# TODO` (classification Part B 6-10; K-Means and Agglomerative in `clustering.ipynb`) and the "write your own" observation cells. Each algorithm cell fills a shared dict (`fitted_models` / `predictions` / `probabilities`, or `cluster_labels`) and everything after it runs automatically. Download the clustering data first: `python data/download_dataset.py vehicle-reg`.
 4. Bonus GUI: see [`app/README.md`](app/README.md).
 
 ## AI assistance disclosure

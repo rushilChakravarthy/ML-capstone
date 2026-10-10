@@ -8,7 +8,7 @@ Interactive GUI for the loan-default classifier — worth **+1** for a working G
 | `requirements.txt` | Deploy-time dependencies (pinned) |
 
 ## Before it works: save the model
-`app.py` loads `models/best_classifier.joblib`. From `classification.ipynb`, once the final model is chosen:
+`app.py` loads `models/best_classifier.joblib`. The final-model cell in `classification.ipynb` (Section A3) saves it automatically once all 10 models exist. To save a model manually:
 
 ```python
 import joblib
