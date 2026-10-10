@@ -22,6 +22,7 @@ data/raw/*
 # Saved models
 models/*.pkl
 models/*.joblib
+!models/best_classifier.joblib
 
 # OS
 .DS_Store

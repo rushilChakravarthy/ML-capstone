@@ -1,15 +1,16 @@
 # data/
 
-Two datasets, one per track pairing:
+Two datasets are committed so far (a third, for clustering, is still to be added by the team):
 
 | File | Used by | Rows | Target |
 |---|---|---|---|
-| `raw/autos.csv` | Regression, Clustering | ~371k | `price` (regression) |
+| `raw/autos.csv` | Regression | ~371k | `price` (regression) |
 | `raw/train.csv` | Classification | ~233k | `loan_default` (classification) |
+| _TBD_ | Clustering | — | — (unsupervised) — add the file to `raw/`, then document it in a section below |
 
 Both are committed directly to the repo (68MB and 40MB respectively, both under GitHub's 100MB limit) so every notebook runs out-of-the-box with no separate download step. `download_dataset.py` is kept as a fallback/reproducibility script for `autos.csv` specifically.
 
-## Regression + Clustering dataset: Used Cars
+## Regression dataset: Used Cars
 
 Source: [Kaggle](https://www.kaggle.com/datasets/thedevastator/uncovering-factors-that-affect-used-car-prices) — a cleaned republication of the eBay Kleinanzeigen (German eBay classifieds) used-car listings dataset. Each row is one used-car listing (~371k rows raw, ~312k after cleaning).
 
@@ -38,7 +39,7 @@ Source: [Kaggle](https://www.kaggle.com/datasets/thedevastator/uncovering-factor
 | `postalCode` | Postal code of the seller |
 | `lastSeen` | Last time the crawler saw this ad online |
 
-**Cleaning applied:** filter to realistic `price` (€100–150,000), `yearOfRegistration` (1950–2016), and `powerPS` (1–1000); drop duplicates and non-predictive columns (IDs, timestamps, picture count); engineer `vehicle_age = 2016 - yearOfRegistration`. Subsampled to 8,000 rows (regression) / a smaller sample (clustering) for computational feasibility of SVR/GridSearchCV/Agglomerative clustering on this environment's hardware.
+**Cleaning applied:** filter to realistic `price` (€100–150,000), `yearOfRegistration` (1950–2016), and `powerPS` (1–1000); drop duplicates and non-predictive columns (IDs, timestamps, picture count); engineer `vehicle_age = 2016 - yearOfRegistration`. Subsampled to 8,000 rows for computational feasibility of SVR/GridSearchCV.
 
 **Re-fetching it (if ever needed):**
 ```bash

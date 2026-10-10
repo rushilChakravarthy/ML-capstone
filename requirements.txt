@@ -1,15 +1,19 @@
-numpy
-pandas
-scikit-learn
-matplotlib
-seaborn
-xgboost
-jupyter
-notebook
-joblib
-scipy
-kaggle
+# Pinned to the versions the notebooks were verified against (Python 3.12)
+numpy==2.4.4
+pandas==3.0.2
+scipy==1.17.1
+scikit-learn==1.8.0
+matplotlib==3.10.8
+seaborn==0.13.2
+joblib==1.5.3
+xgboost==3.4.1          # optional: allowed for Gradient Boosting (Part B / Regression)
+kaggle==2.2.4           # only needed by data/download_dataset.py
 
-# Bonus GUI (uncomment if attempting the deployment bonus)
-# streamlit
-# gradio
+# Notebook tooling
+notebook==7.6.3
+ipykernel==7.4.0
+nbformat==5.11.1
+nbconvert==7.17.1
+
+# Bonus GUI (app/app.py) — uncomment if attempting the GUI / deployment bonus
+# streamlit==1.65.0

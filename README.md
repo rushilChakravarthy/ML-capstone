@@ -1,6 +1,6 @@
 # ML Capstone — 23CSE301 (AY 2026-27)
 
-End-to-end Machine Learning pipeline covering three tracks — **Regression**, **Classification**, and **Clustering** — built for the 23CSE301 Machine Learning capstone project.
+End-to-end Machine Learning pipeline covering three tracks — **Regression**, **Classification** and **Clustering** — for the 23CSE301 Machine Learning capstone project (B.Tech. CSE, III Year).
 
 ## Project overview
 
@@ -10,45 +10,90 @@ End-to-end Machine Learning pipeline covering three tracks — **Regression**, *
 | Academic Year | 2026-27 |
 | Team size | 3 |
 | Tracks | Regression, Classification, Clustering |
-| Reviews | Review 1 (Regression + Classification Part A), Review 2 (Classification Part B + Clustering) |
+| Reviews | Review 1: Regression + Classification Part A · Review 2: Classification Part B + Clustering |
+| Tools | Python 3.12, scikit-learn, pandas, NumPy, Matplotlib, Seaborn |
+
+### Team & track ownership
+
+| Member | Primary track (owner) |
+|---|---|
+| _TBD_ | _TBD_ |
+| _TBD_ | _TBD_ |
+| _TBD_ | _TBD_ |
 
 ## Problem statement
 
-Regression and Classification use **separate datasets**, chosen to fit each problem naturally rather than forcing one dataset into three different shapes. Clustering reuses the regression dataset (unsupervised, no separate target needed).
+Regression and Classification use **separate datasets**, each chosen to fit its problem naturally.
 
 | Track | Dataset | Target | Framing |
 |---|---|---|---|
-| Regression | [Used Cars — Uncovering Factors that Affect Used Car Prices](https://www.kaggle.com/datasets/thedevastator/uncovering-factors-that-affect-used-car-prices) (`data/raw/autos.csv`) | `price` (continuous) | Predict a car's resale price from its listing attributes (vehicle type, registration year, power, mileage, brand, etc.) |
-| Classification | [Vehicle Loan Default Prediction](https://www.kaggle.com/datasets/mamtadhaker/lt-vehicle-loan-default-prediction) (`data/raw/train.csv`) | `loan_default` (binary, 0/1) | Predict whether a vehicle loan defaults, from borrower and credit-bureau attributes |
-| Clustering | Used Cars (same as Regression) | — (unsupervised) | Group listings by their attributes |
+| Regression | [Used Cars](https://www.kaggle.com/datasets/thedevastator/uncovering-factors-that-affect-used-car-prices) — `data/raw/autos.csv` (~371k listings) | `price` (continuous) | Predict a used car's price from its listing attributes (vehicle type, age, power, mileage, brand …) |
+| Classification | [Vehicle Loan Default Prediction](https://www.kaggle.com/datasets/mamtadhaker/lt-vehicle-loan-default-prediction) — `data/raw/train.csv` (~233k loans) | `loan_default` (binary; ~78 % / 22 %) | Predict whether a vehicle loan defaults from borrower and credit-bureau attributes |
+| Clustering | _TBD — dataset to be added by the team_ | — (unsupervised) | Group records by their attributes; ground truth (if any) used only post-hoc |
 
-See `data/README.md` for the full data dictionary of both datasets.
+Full data dictionaries and cleaning rules: [`data/README.md`](data/README.md).
 
 ## Repository structure
 
 ```
 /
-├── README.md              # This file
-├── requirements.txt        # Python dependencies
-├── data/                   # Raw dataset files or scripts to fetch them
-├── notebooks/              # regression.ipynb, classification.ipynb, clustering.ipynb
-├── models/                 # Saved model files (.pkl via joblib) — optional
-└── app/                    # GUI / deployment code for the bonus track
+├── README.md               # This file
+├── requirements.txt        # Pinned Python dependencies
+├── data/
+│   ├── raw/                # autos.csv (regression), train.csv (classification)
+│   ├── download_dataset.py # Kaggle fetch script for autos.csv (fallback)
+│   └── README.md           # Dataset descriptions + data dictionaries
+├── notebooks/
+│   ├── regression.ipynb
+│   ├── classification.ipynb
+│   └── clustering.ipynb
+├── models/                 # Saved models (best_classifier.joblib is used by the GUI)
+└── app/                    # Streamlit GUI for the bonus marks
 ```
 
-## Tracks & algorithms
+## Tracks, algorithms and status
 
-### Regression (Review 1)
-Linear, Ridge, Lasso, ElasticNet, Polynomial, Decision Tree, Random Forest, Gradient Boosting, SVR, KNN Regressor.
-Metrics: R², RMSE, MAE, 5-fold CV R² (top 2 models).
+| Track | Algorithms | Status |
+|---|---|---|
+| Regression (Review 1) | Linear, Ridge, Lasso, ElasticNet, Polynomial, Decision Tree, Random Forest, Gradient Boosting, SVR, KNN | Implemented, executed |
+| Classification Part A (Review 1) | Logistic Regression, KNN, Gaussian Naive Bayes, Decision Tree, SVC | Implemented, executed |
+| Classification Part B (Review 2) | Random Forest, AdaBoost, Gradient Boosting, Bagging (Decision Tree base), MLP | Framework ready — **algorithm cells are `TODO`** |
+| Clustering (Review 2) | K-Means (Elbow), Agglomerative (Dendrogram) | Framework ready — **EDA / preprocessing / algorithm cells are `TODO`**; needs dataset |
 
-### Classification (Part A – Review 1, Part B – Review 2)
-Logistic Regression, KNN, Gaussian Naive Bayes, Decision Tree, SVC, Random Forest, AdaBoost, Gradient Boosting, Bagging, MLP Classifier.
-Metrics: Accuracy, Precision, Recall, weighted F1, Confusion Matrix, ROC-AUC (binary — `loan_default` is a 2-class target, so plain ROC-AUC rather than OvR).
+Metrics — Regression: R², RMSE, MAE, 5-fold CV R² (top 2). Classification: Accuracy, Precision, Recall, weighted F1, confusion matrix, ROC-AUC (binary target, so plain ROC-AUC rather than One-vs-Rest). Clustering: Silhouette, Davies-Bouldin, Calinski-Harabasz; PCA 2-D plot for every algorithm, t-SNE for at least one.
 
-### Clustering (Review 2)
-K-Means (Elbow curve), Agglomerative Hierarchical (Dendrogram).
-Metrics: Silhouette Score, Davies-Bouldin Index, Calinski-Harabasz Index. PCA (2D) visualisation mandatory; t-SNE encouraged.
+## Results summary
+
+Hold-out test set (80/20 split, `random_state=42`) on an 8,000-row random sample of each cleaned dataset (sampled so SVR / SVC / GridSearchCV run in reasonable time).
+
+### Regression — `price` (ranked by R²)
+
+| Model | R² | RMSE | MAE |
+|---|---|---|---|
+| Random Forest Regressor | 0.8203 | 3191.56 | 1584.00 |
+| SVR | 0.8047 | 3327.80 | 1536.36 |
+| Gradient Boosting Regressor | 0.8013 | 3356.11 | 1748.07 |
+| Polynomial Regression | 0.7626 | 3668.86 | 2146.64 |
+| Decision Tree Regressor | 0.7503 | 3762.83 | 1983.95 |
+| KNN Regressor | 0.7258 | 3943.00 | 2131.22 |
+| Ridge Regression | 0.6852 | 4224.61 | 2620.29 |
+| Lasso Regression | 0.6796 | 4261.71 | 2624.88 |
+| Linear Regression | 0.6785 | 4269.16 | 2629.97 |
+| ElasticNet Regression | 0.6632 | 4369.68 | 2737.10 |
+
+### Classification Part A — `loan_default` (ranked by ROC-AUC)
+
+| Model | Accuracy | F1 (weighted) | ROC-AUC |
+|---|---|---|---|
+| Logistic Regression | 0.5513 | 0.5902 | 0.5787 |
+| Gaussian Naive Bayes | 0.2763 | 0.2091 | 0.5730 |
+| SVC | 0.7813 | 0.6870 | 0.5710 |
+| Decision Tree Classifier | 0.5013 | 0.5420 | 0.5600 |
+| KNN | 0.7825 | 0.6997 | 0.5548 |
+
+Precision / Recall and per-model confusion matrices are in `notebooks/classification.ipynb`. All models separate the classes only weakly (ROC-AUC ≈ 0.55-0.58): the signal is diffuse across many weak features, and the high accuracy of KNN / SVC mostly reflects predicting the 78 % majority class.
+
+_Part B (6-10), the consolidated 10-algorithm table and the clustering results are added in Review 2 — see the notebooks._
 
 ## Environment setup
 
@@ -56,22 +101,24 @@ Metrics: Silhouette Score, Davies-Bouldin Index, Calinski-Harabasz Index. PCA (2
 git clone https://github.com/Rushil-99/ML-capstone.git
 cd ML-capstone
 python -m venv venv
-source venv/bin/activate   # venv\Scripts\activate on Windows
+source venv/bin/activate        # Windows: venv\Scripts\activate
 pip install -r requirements.txt
+jupyter notebook
 ```
 
 ## How to run
 
-1. `data/raw/autos.csv` (regression + clustering) and `data/raw/train.csv` (classification) are already committed — no download step needed.
-2. Open the relevant notebook in `notebooks/` (`regression.ipynb`, `classification.ipynb`, `clustering.ipynb`).
-3. **Sections A (Dataset & EDA) and B (Preprocessing & Feature Engineering) are already implemented and run end-to-end** — real plots, cleaning, and feature engineering on the actual dataset.
-4. **The algorithms themselves are left as `TODO`s, one per algorithm, for you to fill in** — each has its exact name/notes from the guidelines and a commented skeleton showing which variables to use and which dict keys to populate (`fitted_models`, `predictions`, `probabilities`). Fill each in, then the Evaluation/Tuning/Visualisation cells below them (also `TODO`, since they depend on the trained models) read straight from those dicts.
-5. `random_state=42` is used throughout for reproducibility.
+1. Both datasets used so far are already committed in `data/raw/` — no download step. (`data/download_dataset.py` can re-fetch `autos.csv` from Kaggle.)
+2. Open a notebook in `notebooks/` and **Run All** (top to bottom). `random_state=42` is used throughout.
+3. `regression.ipynb` and `classification.ipynb` (Part A) run end-to-end with outputs saved. In `classification.ipynb` Part B and in `clustering.ipynb`, algorithm cells marked `# TODO` are filled in by the team; each fills a shared dict (`fitted_models` / `predictions` / `probabilities`, or `cluster_labels`) and the evaluation / plotting cells below read from it.
+4. Bonus GUI: see [`app/README.md`](app/README.md).
 
-## Bonus (optional)
+## AI assistance disclosure
 
-A Streamlit/Gradio GUI in `app/`, optionally deployed publicly, for up to +2 bonus marks in Review 2.
+_Required by the course guidelines (7.5). **Team: review and edit this paragraph so it reflects exactly what was done.**_
+
+Generative AI (Claude, by Anthropic) was used for **code scaffolding**: the repository/notebook framework, dataset loading, cleaning and feature-engineering code, evaluation / plotting scaffolding, the Streamlit GUI scaffold, and first-draft wording of some Markdown observations. Algorithm implementations, hyperparameter choices, analysis and interpretation are the team's own work. External code, where used, is cited in Markdown cells.
 
 ## Academic integrity
 
-External code is cited inline via Markdown comments. Any generative AI assistance used is disclosed here as work progresses.
+Code from external sources (StackOverflow, blogs …) is cited in a Markdown cell next to where it is used.
