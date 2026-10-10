@@ -6,7 +6,7 @@ Two datasets are committed so far (a third, for clustering, is still to be added
 |---|---|---|---|
 | `raw/autos.csv` | Regression | ~371k | `price` (regression) |
 | `raw/train.csv` | Classification | ~233k | `loan_default` (classification) |
-| _TBD_ | Clustering | — | — (unsupervised) — add the file to `raw/`, then document it in a section below |
+| `raw/vehicle_registration/` (downloaded, not committed) | Clustering | — | — (unsupervised) |
 
 Both are committed directly to the repo (68MB and 40MB respectively, both under GitHub's 100MB limit) so every notebook runs out-of-the-box with no separate download step. `download_dataset.py` is kept as a fallback/reproducibility script for `autos.csv` specifically.
 
@@ -72,3 +72,9 @@ Source: [Kaggle](https://www.kaggle.com/datasets/mamtadhaker/lt-vehicle-loan-def
 | `loan_default` | **Classification target** (1 = default, 0 = no default) |
 
 **Cleaning/feature engineering applied:** `age_years` derived from `Date.of.Birth`/`DisbursalDate` (with a century-window fix — some 2-digit birth years parse to the 2060s otherwise); `AVERAGE.ACCT.AGE`/`CREDIT.HISTORY.LENGTH` parsed from `"Xyrs Ymon"` strings into total months; high-cardinality ID columns dropped. Subsampled to 8,000 rows for computational feasibility of SVC on this environment's hardware; stratified train/test split given the class imbalance.
+
+## Clustering dataset: Indian Vehicle Registration Data (2020–25)
+
+Source: [Kaggle](https://www.kaggle.com/datasets/aatifahmad123/indian-vehicle-registration-data-202025) — vehicle-registration records for India, 2020–2025. Fetch with `python data/download_dataset.py vehicle-reg` (needs a Kaggle API token); files land in `data/raw/vehicle_registration/`.
+
+**Data dictionary, cleaning rules and preprocessing: _TBD_** — to be written from the downloaded file's actual columns (the dataset's page lists only a description, not a schema).

@@ -29,7 +29,7 @@ Regression and Classification use **separate datasets**, each chosen to fit its 
 |---|---|---|---|
 | Regression | [Used Cars](https://www.kaggle.com/datasets/thedevastator/uncovering-factors-that-affect-used-car-prices) — `data/raw/autos.csv` (~371k listings) | `price` (continuous) | Predict a used car's price from its listing attributes (vehicle type, age, power, mileage, brand …) |
 | Classification | [Vehicle Loan Default Prediction](https://www.kaggle.com/datasets/mamtadhaker/lt-vehicle-loan-default-prediction) — `data/raw/train.csv` (~233k loans) | `loan_default` (binary; ~78 % / 22 %) | Predict whether a vehicle loan defaults from borrower and credit-bureau attributes |
-| Clustering | _TBD — dataset to be added by the team_ | — (unsupervised) | Group records by their attributes; ground truth (if any) used only post-hoc |
+| Clustering | [Indian Vehicle Registration Data (2020–25)](https://www.kaggle.com/datasets/aatifahmad123/indian-vehicle-registration-data-202025) — fetched into `data/raw/vehicle_registration/` | — (unsupervised) | Group vehicle-registration records by their attributes; ground truth (if any) used only post-hoc |
 
 Full data dictionaries and cleaning rules: [`data/README.md`](data/README.md).
 
@@ -40,7 +40,7 @@ Full data dictionaries and cleaning rules: [`data/README.md`](data/README.md).
 ├── README.md               # This file
 ├── requirements.txt        # Pinned Python dependencies
 ├── data/
-│   ├── raw/                # autos.csv (regression), train.csv (classification)
+│   ├── raw/                # autos.csv (regression), train.csv (classification), vehicle_registration/ (clustering, downloaded)
 │   ├── download_dataset.py # Kaggle fetch script for autos.csv (fallback)
 │   └── README.md           # Dataset descriptions + data dictionaries
 ├── notebooks/
@@ -58,7 +58,7 @@ Full data dictionaries and cleaning rules: [`data/README.md`](data/README.md).
 | Regression (Review 1) | Linear, Ridge, Lasso, ElasticNet, Polynomial, Decision Tree, Random Forest, Gradient Boosting, SVR, KNN | Implemented, executed |
 | Classification Part A (Review 1) | Logistic Regression, KNN, Gaussian Naive Bayes, Decision Tree, SVC | Implemented, executed |
 | Classification Part B (Review 2) | Random Forest, AdaBoost, Gradient Boosting, Bagging (Decision Tree base), MLP | Framework ready — **algorithm cells are `TODO`** |
-| Clustering (Review 2) | K-Means (Elbow), Agglomerative (Dendrogram) | Framework ready — **EDA / preprocessing / algorithm cells are `TODO`**; needs dataset |
+| Clustering (Review 2) | K-Means (Elbow), Agglomerative (Dendrogram) | Framework ready — **EDA / preprocessing / algorithm cells are `TODO`**; dataset chosen, file not yet downloaded |
 
 Metrics — Regression: R², RMSE, MAE, 5-fold CV R² (top 2). Classification: Accuracy, Precision, Recall, weighted F1, confusion matrix, ROC-AUC (binary target, so plain ROC-AUC rather than One-vs-Rest). Clustering: Silhouette, Davies-Bouldin, Calinski-Harabasz; PCA 2-D plot for every algorithm, t-SNE for at least one.
 
@@ -108,7 +108,7 @@ jupyter notebook
 
 ## How to run
 
-1. Both datasets used so far are already committed in `data/raw/` — no download step. (`data/download_dataset.py` can re-fetch `autos.csv` from Kaggle.)
+1. Both datasets used so far are already committed in `data/raw/` — no download step. (`python data/download_dataset.py vehicle-reg` fetches the clustering dataset from Kaggle; it needs a free Kaggle API token — see the script's docstring.)
 2. Open a notebook in `notebooks/` and **Run All** (top to bottom). `random_state=42` is used throughout.
 3. `regression.ipynb` and `classification.ipynb` (Part A) run end-to-end with outputs saved. In `classification.ipynb` Part B and in `clustering.ipynb`, algorithm cells marked `# TODO` are filled in by the team; each fills a shared dict (`fitted_models` / `predictions` / `probabilities`, or `cluster_labels`) and the evaluation / plotting cells below read from it.
 4. Bonus GUI: see [`app/README.md`](app/README.md).
