@@ -18,8 +18,8 @@ End-to-end Machine Learning pipeline covering three tracks — **Regression**, *
 | Member | Primary track (owner) |
 |---|---|
 | CB.SC.U4CSE24319 | Girithar R |
-| CB.SC.U4CSE24319 | Ravi Teja KV |
-| CB.SC.U4CSE24319 | Rushil |
+| CB.SC.U4CSE24327 | Ravi Teja KV |
+| CB.SC.U4CSE24351 | Rushil |
 
 ## Problem statement
 
