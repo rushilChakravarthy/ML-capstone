@@ -18,6 +18,9 @@ data/*
 data/raw/*
 !data/raw/autos.csv
 !data/raw/train.csv
+!data/raw/vehicle_registration/
+data/raw/vehicle_registration/*
+!data/raw/vehicle_registration/vehicle_registrations.csv
 
 # Saved models
 models/*.pkl

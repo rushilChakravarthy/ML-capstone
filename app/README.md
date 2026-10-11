@@ -7,7 +7,7 @@ Interactive GUI for the loan-default classifier — worth **+1** for a working G
 | `app.py` | Streamlit app: form → `predict_proba` → default probability |
 | `requirements.txt` | Deploy-time dependencies (pinned) |
 
-## Before it works: save the model
+## Model
 `app.py` loads `models/best_classifier.joblib`. The final-model cell in `classification.ipynb` (Section A3) saves it automatically once all 10 models exist. To save a model manually:
 
 ```python

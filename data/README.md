@@ -1,12 +1,12 @@
 # data/
 
-Two datasets are committed so far (a third, for clustering, is still to be added by the team):
+Three datasets, one per track — all committed, so every notebook runs out of the box:
 
 | File | Used by | Rows | Target |
 |---|---|---|---|
 | `raw/autos.csv` | Regression | ~371k | `price` (regression) |
 | `raw/train.csv` | Classification | ~233k | `loan_default` (classification) |
-| `raw/vehicle_registration/` (downloaded, not committed) | Clustering | — | — (unsupervised) |
+| `raw/vehicle_registration/vehicle_registrations.csv` | Clustering | 500,000 | — (unsupervised) |
 
 Both are committed directly to the repo (68MB and 40MB respectively, both under GitHub's 100MB limit) so every notebook runs out-of-the-box with no separate download step. `download_dataset.py` is kept as a fallback/reproducibility script for `autos.csv` specifically.
 
@@ -75,6 +75,20 @@ Source: [Kaggle](https://www.kaggle.com/datasets/mamtadhaker/lt-vehicle-loan-def
 
 ## Clustering dataset: Indian Vehicle Registration Data (2020–25)
 
-Source: [Kaggle](https://www.kaggle.com/datasets/aatifahmad123/indian-vehicle-registration-data-202025) — vehicle-registration records for India, 2020–2025. Fetch with `python data/download_dataset.py vehicle-reg` (needs a Kaggle API token); files land in `data/raw/vehicle_registration/`.
+Source: [Kaggle](https://www.kaggle.com/datasets/aatifahmad123/indian-vehicle-registration-data-202025) (VAHAN registration records). Committed as `raw/vehicle_registration/vehicle_registrations.csv` (82 MB, 500,000 rows × 15 columns). Each row is a **group** of vehicles registered in one month at one RTO with the same maker, model, fuel, class and norm; `vehicleCount` is the group size.
 
-**Data dictionary: _TBD_** — Kaggle's page gives only a description, not a schema, and the file could not be fetched while building the repo, so columns are not listed here yet. `clustering.ipynb` detects column types itself and prints exactly what it keeps, drops (index/ID, constant, >50% missing), log-transforms and one-hot encodes, so the cleaning rules are visible in its Section B output once the data is downloaded; copy the column list into this section then.
+| Column | Description | Used in clustering |
+|---|---|---|
+| `registrationYear` | Year of registration (2020–25; 5 impossible values such as 9100 are removed) | numeric feature |
+| `financialYear`, `registrationMonthMMYY` | Financial year / month of registration | no (time stamps; used in EDA) |
+| `makerName`, `vehicleModelName` | Manufacturer / model (1,244 and 14,160 values) | no (too high-cardinality) |
+| `stateName`, `rtoCode`, `rtoName` | Registering state and RTO | no (geography; used in EDA) |
+| `vehicleCategoryName` | Official category (16 values, e.g. LIGHT MOTOR VEHICLE, TWO WHEELER(NT)) | **held out** — post-hoc validation only |
+| `vehicleClassName` | Vehicle class (67 values; top 12 kept, rest `OTHER`) | categorical feature |
+| `fuelName` | Fuel type (21 values) | categorical feature |
+| `pollutionNorm` | Emission norm (24 values, e.g. BHARAT STAGE VI) | categorical feature |
+| `saleType` | `New` / `Resale` | categorical feature |
+| `grossVehicleWeight` | Gross vehicle weight in kg (0 = missing in 4.8 % of rows) | numeric feature (`0`→missing, `log1p`) |
+| `vehicleCount` | Vehicles in the group (median 1, max 2,078) | numeric feature (`log1p`) |
+
+**Cleaning / preprocessing (see `notebooks/clustering.ipynb`, Section B):** keep `registrationYear` 2020–2025, treat weight 0 as missing (median imputation), `log1p` on weight and count, one-hot encode the four categorical features, standardise the numeric features only, fixed-seed 4,000-record subsample (Agglomerative clustering is O(n²) in memory). `download_dataset.py vehicle-reg` re-fetches the file from Kaggle if needed.

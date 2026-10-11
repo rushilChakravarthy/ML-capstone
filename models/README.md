@@ -4,4 +4,4 @@ Saved model artifacts (via `joblib.dump`) — optional per the guidelines. `*.pk
 
 | File | Track | Algorithm | Notes |
 |---|---|---|---|
-| `best_classifier.joblib` | Classification | _TBD — final model from Part B_ | Fitted `Pipeline([("pre", preprocessor), ("clf", best_model)])`; loaded by `app/app.py` |
+| `best_classifier.joblib` | Classification | Tuned Random Forest (`n_estimators=100, max_depth=6, min_samples_leaf=10`) | Fitted `Pipeline([("pre", preprocessor), ("clf", best_model)])`; loaded by `app/app.py` |
