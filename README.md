@@ -13,9 +13,9 @@ End-to-end Machine Learning pipeline covering three tracks — **Regression**, *
 | Reviews | Review 1: Regression + Classification Part A · Review 2: Classification Part B + Clustering |
 | Tools | Python 3.12, scikit-learn, pandas, NumPy, Matplotlib, Seaborn |
 
-### Team & track ownership
+### Team details
 
-| Member | Primary track (owner) |
+| Roll No | Member |
 |---|---|
 | CB.SC.U4CSE24319 | Girithar R |
 | CB.SC.U4CSE24327 | Ravi Teja KV |
