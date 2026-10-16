@@ -1,6 +1,6 @@
 # models/
 
-Saved model artifacts (via `joblib.dump`) — optional per the guidelines. `*.pkl` / `*.joblib` are git-ignored **except** `best_classifier.joblib`, which the GUI in `app/` needs for deployment.
+Saved model artifacts (via `joblib.dump`). `*.pkl` / `*.joblib` are git-ignored **except** `best_classifier.joblib`, which the GUI in `app/` needs for deployment.
 
 | File | Track | Algorithm | Notes |
 |---|---|---|---|

@@ -1,6 +1,6 @@
-# app/ — Streamlit GUI (bonus)
+# app/ — Streamlit app
 
-Interactive GUI for the loan-default classifier — worth **+1** for a working GUI and **+1** more for a live public deployment (max +2 in the guidelines).
+Interactive app for the loan-default classifier: enter borrower and loan details, get the estimated default probability.
 
 | File | Purpose |
 |---|---|
@@ -23,7 +23,7 @@ pip install -r app/requirements.txt
 streamlit run app/app.py
 ```
 
-## Deploy (for the second bonus mark)
+## Deploy publicly
 Commit `models/best_classifier.joblib` (it is explicitly un-ignored in `.gitignore`), then deploy `app/app.py` on Streamlit Community Cloud / Hugging Face Spaces / Render and paste the public URL here:
 
 **Public URL:** _TBD_

@@ -1,5 +1,5 @@
 """
-Streamlit GUI for the loan-default classifier (bonus: +1 interactive GUI, +1 public deployment).
+Streamlit app for the loan-default classifier.
 
 SCAFFOLD: it needs a trained model that the team saves from classification.ipynb, e.g.
 

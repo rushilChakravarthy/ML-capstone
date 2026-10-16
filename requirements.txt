@@ -15,5 +15,5 @@ ipykernel==7.4.0
 nbformat==5.11.1
 nbconvert==7.17.1
 
-# Bonus GUI (app/app.py) — uncomment if attempting the GUI / deployment bonus
+# Streamlit app (app/app.py) — uncomment to run it
 # streamlit==1.65.0

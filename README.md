@@ -47,7 +47,7 @@ Full data dictionaries and cleaning rules: [`data/README.md`](data/README.md).
 │   ├── classification.ipynb
 │   └── clustering.ipynb
 ├── models/                 # Saved models (best_classifier.joblib is used by the GUI)
-└── app/                    # Streamlit GUI for the bonus marks
+└── app/                    # Streamlit app for the loan-default classifier
 ```
 
 ## Tracks, algorithms and status
@@ -107,66 +107,6 @@ All ten models separate defaulters only weakly (ROC-AUC 0.55–0.59); the 78 % m
 
 Both algorithms split the records into a light, high-volume, petrol group (mostly two-wheelers; mean weight ≈ 300–400 kg) and a heavier diesel / motor-car group (≈ 3,000 kg). The official category was never used for fitting; ARI / NMI are post-hoc agreement only. Full output (elbow, dendrogram, linkage comparison, PCA, t-SNE, cluster profiles) is in `notebooks/clustering.ipynb`.
 
-## Project checklist — everything the guidelines require
-
-✅ = done and executed in the notebooks · ✍️ = to be written by the team (see the list below).
-
-### Regression (`notebooks/regression.ipynb`)
-
-| Section | Requirement | Status |
-|---|---|---|
-| A1 | Dataset audit: shape, dtypes, missing values, target distribution | ✅ |
-| A2 | EDA: distribution plots for every feature, correlation heatmap, target distribution, ≥ 2 feature–target scatter plots | ✅ |
-| A3 | Written observation next to each major plot | ✅ original plots · ✍️ added plots |
-| B1–B3 | Cleaning (missing values, duplicates, outliers), encoding / scaling fitted on train only / stratified split, engineered feature | ✅ |
-| C1 | All 10 algorithms, each with its note: coefficients (Linear), `alpha` (Ridge), sparsity (Lasso), `l1_ratio` (ElasticNet), degrees (Polynomial), `max_depth` + importance (Decision Tree), `n_estimators` (Random Forest), `learning_rate` (Gradient Boosting), `C` + kernel (SVR), `k` + scaling (KNN) | ✅ · ✍️ interpretation |
-| C2 | R² / RMSE / MAE table ranked by R²; 5-fold CV R² of the top 2 | ✅ |
-| C3 | `GridSearchCV` on ≥ 2 models | ✅ |
-| C4 | Residual plot, predicted-vs-actual, feature importance | ✅ |
-
-### Classification (`notebooks/classification.ipynb`)
-
-| Section | Requirement | Status |
-|---|---|---|
-| A1–A3 | Audit, EDA (all feature distributions, heatmap, class balance, scatter plots), observations | ✅ · ✍️ added plots |
-| B1–B3 | Cleaning (duplicates / outliers checked, missing values), encoding, scaling, **stratified** split, engineered features | ✅ |
-| C1–C3 | Algorithms 1–10, each with its note: odds ratios (Logistic Regression), `k` + distance metrics (KNN), independence assumption (Gaussian NB), `max_depth` + tree plot (Decision Tree), `C` + kernel (SVC), importance + `n_estimators` (Random Forest), tuning (AdaBoost, MLP), Decision Tree base (Bagging) | ✅ · ✍️ interpretation |
-| C2 / D1 | Accuracy, Precision, Recall, F1, confusion matrix per algorithm; one consolidated 10-algorithm table | ✅ |
-| D2 | ROC curves for all 10 | ✅ |
-| D3 | Best model justified, tuned, improvement documented; 5-fold CV of the top 2; model exported | ✅ numbers · ✍️ justification |
-
-### Clustering (`notebooks/clustering.ipynb`)
-
-| Section | Requirement | Status |
-|---|---|---|
-| A–B | Dataset audit, EDA, preprocessing (labels held out) | ✅ · ✍️ observation, justification |
-| C1 / C2 | K-Means with elbow curve; Agglomerative with dendrogram and linkage comparison | ✅ · ✍️ observations |
-| D | Silhouette, Davies-Bouldin, Calinski-Harabasz for both algorithms | ✅ · ✍️ interpretation |
-| E | PCA 2-D plot for every algorithm; t-SNE | ✅ · ✍️ observation |
-| F | Post-hoc validation against the held-out category, cluster profiles | ✅ · ✍️ interpretation |
-
-### Project-level deliverables
-
-| Deliverable | Status |
-|---|---|
-| Notebooks clean, fully run, outputs visible | ✅ |
-| GitHub repository with commit history, `requirements.txt` | ✅ |
-| README (datasets, problem statement, results, environment, how to run, AI disclosure) | ✅ |
-| Repository structure (`data/`, `notebooks/`, `models/`, `app/`) | ✅ |
-| Bonus: Streamlit GUI | ✅ works locally |
-| Bonus: public deployment | ✍️ needs your Streamlit / Hugging Face account — steps in `app/README.md`, then paste the URL there |
-| Presentation / viva | ✍️ team |
-
-### Cells the team still has to write (analysis and interpretation, per guidelines 7.5)
-
-| Notebook | Where | Cells |
-|---|---|---|
-| `regression.ipynb` | A2 (categorical plots); C1 supplementary analyses 1b, 3b, 4b, 5b, 6b, 7b, 8b, 9b, 10b; Conclusion | 11 |
-| `classification.ipynb` | A2 (3 added plots); C1 analyses 1b, 2b, 3b; D1 consolidated table; D3 final-model justification; Conclusion | 9 |
-| `clustering.ipynb` | A2; B preprocessing justification; C1, C2, D, E, F; Conclusion | 8 |
-
-Each is a markdown cell titled "(write your own)" or "TODO (write your own)".
-
 ## Environment setup
 
 ```bash
@@ -182,12 +122,12 @@ jupyter notebook
 
 1. Both datasets used so far are already committed in `data/raw/` — no download step. (`python data/download_dataset.py vehicle-reg` fetches the clustering dataset from Kaggle; it needs a free Kaggle API token — see the script's docstring.)
 2. Open a notebook in `notebooks/` and **Run All** (top to bottom). `random_state=42` is used throughout.
-3. All three notebooks run end-to-end with outputs saved. Only the **"write your own" observation / justification / conclusion cells are left blank on purpose** — the course guidelines require analysis and interpretation to be the team's own work.
-4. Bonus GUI: see [`app/README.md`](app/README.md).
+3. All three notebooks run end-to-end with outputs saved. The observation, justification and conclusion cells marked "write your own" are left for the team to write.
+4. Streamlit app: see [`app/README.md`](app/README.md).
 
 ## AI assistance disclosure
 
-_Required by the course guidelines (7.5). **Team: check this paragraph against what you actually did and correct it if needed.**_
+_**Team: check this paragraph against what you actually did and correct it if needed.**_
 
 Generative AI (Claude, by Anthropic) was used for **code**: the repository and notebook framework; data loading, cleaning, EDA and preprocessing code; the algorithm code for classification algorithms 6–10 and clustering (classification algorithms 6–10, K-Means and Agglomerative clustering) together with their tuning, evaluation and plotting code; the model-export code and the Streamlit GUI; and first-draft wording of some Markdown observations. The regression algorithm cells and classification algorithms 1–5 were written / edited by team members (see commit history); classification algorithms 6–10, the clustering algorithms and the supplementary analysis cells (coefficients, sparsity, degree / depth / learning-rate / k sweeps, distance metrics, extra EDA plots) were written with Claude. **The observation, justification and conclusion cells left as "write your own" are the team's own analysis.** External code, where used, is cited in Markdown cells.
 
