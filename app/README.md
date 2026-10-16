@@ -1,6 +1,6 @@
 # app/ — Streamlit GUI (bonus)
 
-Interactive GUI for the loan-default classifier — worth **+1** for a working GUI and **+1** more for a live public deployment (max +2, Review 2 rubric).
+Interactive GUI for the loan-default classifier — worth **+1** for a working GUI and **+1** more for a live public deployment (max +2 in the guidelines).
 
 | File | Purpose |
 |---|---|

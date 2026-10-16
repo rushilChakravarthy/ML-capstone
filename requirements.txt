@@ -6,7 +6,7 @@ scikit-learn==1.8.0
 matplotlib==3.10.8
 seaborn==0.13.2
 joblib==1.5.3
-xgboost==3.4.1          # optional: allowed for Gradient Boosting (Part B / Regression)
+xgboost==3.4.1          # optional: allowed for Gradient Boosting (Gradient Boosting)
 kaggle==2.2.4           # only needed by data/download_dataset.py
 
 # Notebook tooling

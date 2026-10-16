@@ -10,7 +10,6 @@ End-to-end Machine Learning pipeline covering three tracks — **Regression**, *
 | Academic Year | 2026-27 |
 | Team size | 3 |
 | Tracks | Regression, Classification, Clustering |
-| Reviews | Review 1: Regression + Classification Part A · Review 2: Classification Part B + Clustering |
 | Tools | Python 3.12, scikit-learn, pandas, NumPy, Matplotlib, Seaborn |
 
 ### Team details
@@ -55,10 +54,9 @@ Full data dictionaries and cleaning rules: [`data/README.md`](data/README.md).
 
 | Track | Algorithms | Status |
 |---|---|---|
-| Regression (Review 1) | Linear, Ridge, Lasso, ElasticNet, Polynomial, Decision Tree, Random Forest, Gradient Boosting, SVR, KNN | Implemented, executed |
-| Classification Part A (Review 1) | Logistic Regression, KNN, Gaussian Naive Bayes, Decision Tree, SVC | Implemented, executed |
-| Classification Part B (Review 2) | Random Forest, AdaBoost, Gradient Boosting, Bagging (Decision Tree base), MLP | Implemented, executed — plus consolidated 10-model table, ROC curves, final-model tuning, 5-fold CV and model export |
-| Clustering (Review 2) | K-Means (Elbow), Agglomerative (Dendrogram) | Implemented, executed — elbow, dendrogram, linkage comparison, 3 metrics, PCA, t-SNE, cluster profiling |
+| Regression | Linear, Ridge, Lasso, ElasticNet, Polynomial, Decision Tree, Random Forest, Gradient Boosting, SVR, KNN | Implemented, executed |
+| Classification | Logistic Regression, KNN, Gaussian Naive Bayes, Decision Tree, SVC, Random Forest, AdaBoost, Gradient Boosting, Bagging (Decision Tree base), MLP | Implemented, executed — plus consolidated 10-model table, ROC curves, final-model tuning, 5-fold CV and model export |
+| Clustering | K-Means (Elbow), Agglomerative (Dendrogram) | Implemented, executed — elbow, dendrogram, linkage comparison, 3 metrics, PCA, t-SNE, cluster profiling |
 
 Metrics — Regression: R², RMSE, MAE, 5-fold CV R² (top 2). Classification: Accuracy, Precision, Recall, weighted F1, confusion matrix, ROC-AUC (binary target, so plain ROC-AUC rather than One-vs-Rest). Clustering: Silhouette, Davies-Bouldin, Calinski-Harabasz; PCA 2-D plot for every algorithm, t-SNE for at least one.
 
@@ -81,19 +79,7 @@ Hold-out test set (80/20 split, `random_state=42`) on an 8,000-row random sample
 | Linear Regression | 0.6785 | 4269.16 | 2629.97 |
 | ElasticNet Regression | 0.6632 | 4369.68 | 2737.10 |
 
-### Classification Part A — `loan_default` (ranked by ROC-AUC)
-
-| Model | Accuracy | F1 (weighted) | ROC-AUC |
-|---|---|---|---|
-| Logistic Regression | 0.5513 | 0.5902 | 0.5787 |
-| Gaussian Naive Bayes | 0.2763 | 0.2091 | 0.5730 |
-| SVC | 0.7813 | 0.6870 | 0.5710 |
-| Decision Tree Classifier | 0.5013 | 0.5420 | 0.5600 |
-| KNN | 0.7825 | 0.6997 | 0.5548 |
-
-Precision / Recall and per-model confusion matrices are in `notebooks/classification.ipynb`. All models separate the classes only weakly (ROC-AUC ≈ 0.55-0.58): the signal is diffuse across many weak features, and the high accuracy of KNN / SVC mostly reflects predicting the 78 % majority class.
-
-### Classification — all 10 algorithms (Review 2, ranked by ROC-AUC)
+### Classification — all 10 algorithms (`loan_default`, ranked by ROC-AUC)
 
 | Model | Accuracy | F1 (weighted) | ROC-AUC |
 |---|---|---|---|
@@ -121,6 +107,66 @@ All ten models separate defaulters only weakly (ROC-AUC 0.55–0.59); the 78 % m
 
 Both algorithms split the records into a light, high-volume, petrol group (mostly two-wheelers; mean weight ≈ 300–400 kg) and a heavier diesel / motor-car group (≈ 3,000 kg). The official category was never used for fitting; ARI / NMI are post-hoc agreement only. Full output (elbow, dendrogram, linkage comparison, PCA, t-SNE, cluster profiles) is in `notebooks/clustering.ipynb`.
 
+## Project checklist — everything the guidelines require
+
+✅ = done and executed in the notebooks · ✍️ = to be written by the team (see the list below).
+
+### Regression (`notebooks/regression.ipynb`)
+
+| Section | Requirement | Status |
+|---|---|---|
+| A1 | Dataset audit: shape, dtypes, missing values, target distribution | ✅ |
+| A2 | EDA: distribution plots for every feature, correlation heatmap, target distribution, ≥ 2 feature–target scatter plots | ✅ |
+| A3 | Written observation next to each major plot | ✅ original plots · ✍️ added plots |
+| B1–B3 | Cleaning (missing values, duplicates, outliers), encoding / scaling fitted on train only / stratified split, engineered feature | ✅ |
+| C1 | All 10 algorithms, each with its note: coefficients (Linear), `alpha` (Ridge), sparsity (Lasso), `l1_ratio` (ElasticNet), degrees (Polynomial), `max_depth` + importance (Decision Tree), `n_estimators` (Random Forest), `learning_rate` (Gradient Boosting), `C` + kernel (SVR), `k` + scaling (KNN) | ✅ · ✍️ interpretation |
+| C2 | R² / RMSE / MAE table ranked by R²; 5-fold CV R² of the top 2 | ✅ |
+| C3 | `GridSearchCV` on ≥ 2 models | ✅ |
+| C4 | Residual plot, predicted-vs-actual, feature importance | ✅ |
+
+### Classification (`notebooks/classification.ipynb`)
+
+| Section | Requirement | Status |
+|---|---|---|
+| A1–A3 | Audit, EDA (all feature distributions, heatmap, class balance, scatter plots), observations | ✅ · ✍️ added plots |
+| B1–B3 | Cleaning (duplicates / outliers checked, missing values), encoding, scaling, **stratified** split, engineered features | ✅ |
+| C1–C3 | Algorithms 1–10, each with its note: odds ratios (Logistic Regression), `k` + distance metrics (KNN), independence assumption (Gaussian NB), `max_depth` + tree plot (Decision Tree), `C` + kernel (SVC), importance + `n_estimators` (Random Forest), tuning (AdaBoost, MLP), Decision Tree base (Bagging) | ✅ · ✍️ interpretation |
+| C2 / D1 | Accuracy, Precision, Recall, F1, confusion matrix per algorithm; one consolidated 10-algorithm table | ✅ |
+| D2 | ROC curves for all 10 | ✅ |
+| D3 | Best model justified, tuned, improvement documented; 5-fold CV of the top 2; model exported | ✅ numbers · ✍️ justification |
+
+### Clustering (`notebooks/clustering.ipynb`)
+
+| Section | Requirement | Status |
+|---|---|---|
+| A–B | Dataset audit, EDA, preprocessing (labels held out) | ✅ · ✍️ observation, justification |
+| C1 / C2 | K-Means with elbow curve; Agglomerative with dendrogram and linkage comparison | ✅ · ✍️ observations |
+| D | Silhouette, Davies-Bouldin, Calinski-Harabasz for both algorithms | ✅ · ✍️ interpretation |
+| E | PCA 2-D plot for every algorithm; t-SNE | ✅ · ✍️ observation |
+| F | Post-hoc validation against the held-out category, cluster profiles | ✅ · ✍️ interpretation |
+
+### Project-level deliverables
+
+| Deliverable | Status |
+|---|---|
+| Notebooks clean, fully run, outputs visible | ✅ |
+| GitHub repository with commit history, `requirements.txt` | ✅ |
+| README (datasets, problem statement, results, environment, how to run, AI disclosure) | ✅ |
+| Repository structure (`data/`, `notebooks/`, `models/`, `app/`) | ✅ |
+| Bonus: Streamlit GUI | ✅ works locally |
+| Bonus: public deployment | ✍️ needs your Streamlit / Hugging Face account — steps in `app/README.md`, then paste the URL there |
+| Presentation / viva | ✍️ team |
+
+### Cells the team still has to write (analysis and interpretation, per guidelines 7.5)
+
+| Notebook | Where | Cells |
+|---|---|---|
+| `regression.ipynb` | A2 (categorical plots); C1 supplementary analyses 1b, 3b, 4b, 5b, 6b, 7b, 8b, 9b, 10b; Conclusion | 11 |
+| `classification.ipynb` | A2 (3 added plots); C1 analyses 1b, 2b, 3b; D1 consolidated table; D3 final-model justification; Conclusion | 9 |
+| `clustering.ipynb` | A2; B preprocessing justification; C1, C2, D, E, F; Conclusion | 8 |
+
+Each is a markdown cell titled "(write your own)" or "TODO (write your own)".
+
 ## Environment setup
 
 ```bash
@@ -143,7 +189,7 @@ jupyter notebook
 
 _Required by the course guidelines (7.5). **Team: check this paragraph against what you actually did and correct it if needed.**_
 
-Generative AI (Claude, by Anthropic) was used for **code**: the repository and notebook framework; data loading, cleaning, EDA and preprocessing code; the Review 2 algorithm code (classification Part B, K-Means and Agglomerative clustering) together with their tuning, evaluation and plotting code; the model-export code and the Streamlit GUI; and first-draft wording of the Review 1 Markdown observations. The Review 1 regression and classification Part A algorithm cells were written / edited by team members (see commit history). **The observation, justification and conclusion cells left as "write your own" are the team's own analysis.** External code, where used, is cited in Markdown cells.
+Generative AI (Claude, by Anthropic) was used for **code**: the repository and notebook framework; data loading, cleaning, EDA and preprocessing code; the Review 2 algorithm code (classification Part B, K-Means and Agglomerative clustering) together with their tuning, evaluation and plotting code; the model-export code and the Streamlit GUI; and first-draft wording of some Markdown observations. The regression algorithm cells and classification algorithms 1–5 were written / edited by team members (see commit history); classification algorithms 6–10, the clustering algorithms and the supplementary analysis cells (coefficients, sparsity, degree / depth / learning-rate / k sweeps, distance metrics, extra EDA plots) were written with Claude. **The observation, justification and conclusion cells left as "write your own" are the team's own analysis.** External code, where used, is cited in Markdown cells.
 
 ## Academic integrity
 
