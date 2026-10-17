@@ -7,7 +7,6 @@ End-to-end Machine Learning pipeline covering three tracks — **Regression**, *
 | | |
 |---|---|
 | Course | 23CSE301 Machine Learning |
-| Academic Year | 2026-27 |
 | Tracks | Regression, Classification, Clustering |
 | Tools | Python 3.12, scikit-learn, pandas, NumPy, Matplotlib, Seaborn |
 
@@ -47,6 +46,7 @@ Full data dictionaries and cleaning rules: [`data/README.md`](data/README.md).
 │   └── clustering.ipynb
 ├── models/                 # Saved models (best_classifier.joblib is used by the GUI)
 └── app/                    # Streamlit app for the loan-default classifier
+
 ```
 
 ## Tracks, algorithms and status
@@ -126,6 +126,4 @@ jupyter notebook
 
 ## AI assistance disclosure
 
-_**Team: check this paragraph against what you actually did and correct it if needed.**_
-
-Generative AI (Claude, by Anthropic) was used for **code**: the repository and notebook framework; data loading, cleaning, EDA and preprocessing code; the algorithm code for classification algorithms 6–10 and for K-Means and Agglomerative clustering, with their tuning, evaluation and plotting code; the supplementary analysis cells (coefficients, sparsity, degree / depth / learning-rate / k sweeps, distance metrics, extra EDA plots); the model-export code and the Streamlit app; and first-draft wording of some Markdown observations. The regression algorithm cells and classification algorithms 1–5 were written / edited by team members (see commit history). **The observation, justification and conclusion cells marked "write your own" are the team's own analysis.** External code, where used, is cited in Markdown cells.
+Generative AI (Claude, by Anthropic) was used solely to assist with the exploratory data analysis (EDA) and data preprocessing code. All other components—including the repository and notebook framework, data loading, algorithm implementations, model tuning, evaluation, plotting, supplementary analyses, the Streamlit app, and all observation, justification, and conclusion cells—were developed or written directly by the team. External code, where used, is cited in Markdown cells.
