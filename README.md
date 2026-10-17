@@ -130,7 +130,3 @@ jupyter notebook
 _**Team: check this paragraph against what you actually did and correct it if needed.**_
 
 Generative AI (Claude, by Anthropic) was used for **code**: the repository and notebook framework; data loading, cleaning, EDA and preprocessing code; the algorithm code for classification algorithms 6–10 and for K-Means and Agglomerative clustering, with their tuning, evaluation and plotting code; the supplementary analysis cells (coefficients, sparsity, degree / depth / learning-rate / k sweeps, distance metrics, extra EDA plots); the model-export code and the Streamlit app; and first-draft wording of some Markdown observations. The regression algorithm cells and classification algorithms 1–5 were written / edited by team members (see commit history). **The observation, justification and conclusion cells marked "write your own" are the team's own analysis.** External code, where used, is cited in Markdown cells.
-
-## Academic integrity
-
-Code from external sources (StackOverflow, blogs …) is cited in a Markdown cell next to where it is used.
