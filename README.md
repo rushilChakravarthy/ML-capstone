@@ -79,7 +79,7 @@ Hold-out test set (80/20 split, `random_state=42`) on an 8,000-row random sample
 | Linear Regression | 0.6785 | 4269.16 | 2629.97 |
 | ElasticNet Regression | 0.6632 | 4369.68 | 2737.10 |
 
-### Classification — all 10 algorithms (`loan_default`, ranked by ROC-AUC)
+### Classification — (`loan_default`, ranked by ROC-AUC)
 
 | Model | Accuracy | F1 (weighted) | ROC-AUC |
 |---|---|---|---|
