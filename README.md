@@ -1,6 +1,6 @@
 # ML Capstone — 23CSE301 (AY 2026-27)
 
-End-to-end Machine Learning pipeline covering three tracks — **Regression**, **Classification** and **Clustering** — for the 23CSE301 Machine Learning capstone project (B.Tech. CSE, III Year).
+End-to-end Machine Learning pipeline covering three tracks — **Regression**, **Classification** and **Clustering** — for the 23CSE301 Machine Learning capstone project .
 
 ## Project overview
 
@@ -8,7 +8,6 @@ End-to-end Machine Learning pipeline covering three tracks — **Regression**, *
 |---|---|
 | Course | 23CSE301 Machine Learning |
 | Academic Year | 2026-27 |
-| Team size | 3 |
 | Tracks | Regression, Classification, Clustering |
 | Tools | Python 3.12, scikit-learn, pandas, NumPy, Matplotlib, Seaborn |
 
