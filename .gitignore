@@ -26,6 +26,8 @@ data/raw/vehicle_registration/*
 models/*.pkl
 models/*.joblib
 !models/best_classifier.joblib
+!models/best_regressor.joblib
+!models/clustering_artifacts.joblib
 
 # OS
 .DS_Store
