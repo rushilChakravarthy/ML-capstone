@@ -1,6 +1,9 @@
-# Deploy-time dependencies for app/app.py (Streamlit Community Cloud / Hugging Face Spaces / Render)
-streamlit==1.65.0
-pandas==3.0.2
-numpy==2.4.4
-scikit-learn==1.8.0
-joblib==1.5.3
+# Deploy-time dependencies for ML Capstone Dashboard
+flask>=3.0.0
+flask-cors>=4.0.0
+pandas>=2.2.0
+numpy>=1.26.0
+scikit-learn>=1.4.0
+joblib>=1.3.0
+# Optional Streamlit interface
+streamlit>=1.30.0
